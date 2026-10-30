@@ -61,7 +61,7 @@ I added a **Progressive Speed Increase** feature that is not included in the tut
 
 Watch the short demo video showing the gameplay, scoring system, and the progressive speed increase feature:
 
-[🎥 Watch Demo Video](demo/demo.mp4)
+![Game Demo](demo/demo.gif)
 
 ---
 
