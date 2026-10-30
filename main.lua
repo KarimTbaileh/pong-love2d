@@ -17,6 +17,15 @@ function love.load()
         height = 100,
         speed = 400
     }
+
+    ball = {
+        x = 395,
+        y = 295,
+        width = 10,
+        height = 10,
+        dx = 300,
+        dy = 200
+    }
 end
 
 function love.update(dt)
@@ -45,10 +54,44 @@ function love.update(dt)
     if player2.y + player2.height > 600 then 
         player2.y = 600 - player2.height 
     end
+
+    ball.x = ball.x + ball.dx * dt
+    ball.y = ball.y + ball.dy * dt
+
+    if ball.y < 0 then
+        ball.y = 0
+        ball.dy = -ball.dy
+    end
+
+    if ball.y + ball.height > 600 then
+        ball.y = 600 - ball.height
+        ball.dy = -ball.dy
+    end
+
+    if checkCollision(ball, player1) then
+        ball.x = player1.x + player1.width
+        ball.dx = -ball.dx
+    end
+
+    if checkCollision(ball, player2) then
+        ball.x = player2.x - ball.width
+        ball.dx = -ball.dx
+    end
 end
 
 function love.draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.rectangle('fill', player1.x, player1.y, player1.width, player1.height)
     love.graphics.rectangle('fill', player2.x, player2.y, player2.width, player2.height)
+    love.graphics.rectangle('fill', ball.x, ball.y, ball.width, ball.height)
+end
+
+function checkCollision(a, b)
+    if a.x < b.x + b.width and
+       a.x + a.width > b.x and
+       a.y < b.y + b.height and
+       a.y + a.height > b.y then
+        return true
+    end
+    return false
 end
